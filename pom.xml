@@ -23,14 +23,14 @@
         <repository>
             <id>nexus</id>
             <name>nexus Repository</name>
-            <url>http://nexus.jq.cn/repository/maven-public/</url>
+            <url>http://nexus.top.mw/repository/maven-public/</url>
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>nexus</id>
             <name>nexus Repository</name>
-            <url>http://nexus.jq.cn/repository/maven-public/</url>
+            <url>http://nexus.top.mw/repository/maven-public/</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -46,6 +46,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
         </dependency>
     </dependencies>
 

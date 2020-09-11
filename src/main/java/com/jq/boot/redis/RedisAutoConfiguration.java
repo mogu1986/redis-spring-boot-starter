@@ -32,6 +32,7 @@ import java.time.Duration;
 @EnableConfigurationProperties({RedisProperties.class, org.springframework.boot.autoconfigure.data.redis.RedisProperties.class})
 @EnableCaching
 public class RedisAutoConfiguration {
+
     @Value("${spring.jackson.date-format?:yyyy-MM-dd HH:mm:ss}")
     private String dateFormat;
 
@@ -40,6 +41,7 @@ public class RedisAutoConfiguration {
 
     @Autowired
     private RedisConnectionFactory factory;
+
     @Bean
     @ConditionalOnMissingBean
     public RedisTemplate<Object, Object> redisTemplate(){
@@ -76,9 +78,11 @@ public class RedisAutoConfiguration {
     private RedisSerializer<Object> valueSerializer() {
         return new GenericJackson2JsonRedisSerializer();
     }
+
     @Bean
     @ConditionalOnMissingBean
     public RedisUtil redisUtil(){
         return new RedisUtil();
     }
+
 }

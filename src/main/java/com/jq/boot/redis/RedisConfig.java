@@ -1,5 +1,7 @@
 package com.jq.boot.redis;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,12 +16,15 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RedisConfig extends CachingConfigurerSupport {
+
+    private static final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
+
     @Bean
     public KeyGenerator keyGenerator() {
         return (target, method, params)-> {
             StringBuilder sb = new StringBuilder();
+
             String[] value = new String[1];
-            // sb.append(target.getClass().getName());
             Cacheable cacheable = method.getAnnotation(Cacheable.class);
             if (cacheable != null) {
                 value = cacheable.value();
@@ -32,14 +37,16 @@ public class RedisConfig extends CachingConfigurerSupport {
             if (cacheEvict != null) {
                 value = cacheEvict.value();
             }
-            sb.append(value[0]);
-            sb.append(":").append(method.getName());
+            sb.append(method.getName());
+            sb.append(":").append(value[0]);
+
             //获取参数值
             for (Object obj : params) {
                 sb.append(":" + String.valueOf(obj));
             }
-            System.out.println("缓存key="+sb.toString());
+            logger.info("缓存 key = {}", sb.toString());
             return sb;
         };
     }
+
 }
